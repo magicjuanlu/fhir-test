@@ -1,24 +1,43 @@
-<p-table
-  [value]="patients"
-  selectionMode="single"
-  dataKey="id"
-  (onRowSelect)="onRowSelect($event)"
-  [tableStyle]="{ 'min-width': '50rem' }"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Birthdate</th>
-      <th>Gender</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-patient>
-    <tr [pSelectableRow]="patient">
-      <td>{{ patient.name }}</td>
-      <td>{{ patient.surname }}</td>
-      <td>{{ patient.birthday }}</td>
-      <td>{{ patient.gender }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<ng-container *ngIf="patients | async as patients">
+  <p-table
+    #dt
+    [value]="patients"
+    selectionMode="single"
+    dataKey="id"
+    (onRowSelect)="onRowSelect($event)"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['name', 'surname', 'birthdate', 'gender']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <div class="flex align-items-center">List of patients</div>
+        <div class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            #searchInput
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal(searchInput.value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Birthdate</th>
+        <th>Gender</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patient>
+      <tr [pSelectableRow]="patient">
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.surname }}</td>
+        <td>{{ patient.birthdate }}</td>
+        <td>{{ patient.gender }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-container>

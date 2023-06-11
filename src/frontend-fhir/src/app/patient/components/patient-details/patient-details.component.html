@@ -1,2 +1,18 @@
-<p>patient-details works!</p>
-{{ patient | json }}
+<ng-container *ngIf="patient | async as patient">
+  <p-card
+    header="{{ patient!.name }} {{ patient!.surname }}"
+    [style]="{ width: '360px' }"
+  >
+    <p>Gender: {{ patient!.gender }}</p>
+    <p>Birthdate: {{ patient!.birthdate }}</p>
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Back to list"
+        icon="pi pi-arrow-left"
+        styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"
+        (click)="navigateToList()"
+      ></p-button>
+    </ng-template>
+  </p-card>
+</ng-container>

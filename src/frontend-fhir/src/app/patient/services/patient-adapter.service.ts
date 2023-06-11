@@ -20,6 +20,7 @@ export class PatientAdapterService {
   }
 
   mapR4PatientToPatient(r4Patient: Patient): IPatient {
+    console.log(r4Patient);
     const humanName = r4Patient.name?.[0];
     return {
       id: r4Patient.id,

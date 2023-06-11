@@ -3,26 +3,22 @@ import { PatientService } from '../../services/patient.service';
 import { IPatient } from '../../models/patient.model';
 import { TableRowSelectEvent } from 'primeng/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css'],
 })
-export class PatientListComponent implements OnInit {
-  patients: IPatient[] = [];
+export class PatientListComponent {
+  patients: Observable<IPatient[]>;
 
   constructor(
     private patientService: PatientService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.patientService.getPatientList().subscribe((list) => {
-      console.log(list);
-      this.patients = list;
-    });
+  ) {
+    this.patients = this.patientService.getPatientList();
   }
 
   onRowSelect(event: TableRowSelectEvent) {

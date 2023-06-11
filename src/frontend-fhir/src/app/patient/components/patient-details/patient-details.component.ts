@@ -1,29 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPatient } from '../../models/patient.model';
 import { PatientService } from '../../services/patient.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
   styleUrls: ['./patient-details.component.css'],
 })
-export class PatientDetailsComponent implements OnInit {
-  patient: IPatient | undefined;
+export class PatientDetailsComponent {
+  patient: Observable<IPatient | undefined>;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private patientService: PatientService
-  ) {}
-
-  ngOnInit(): void {
-    this.getPatient();
+  ) {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.patient = this.patientService.getPatient(id);
   }
 
-  getPatient(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    this.patientService
-      .getPatient(id)
-      .subscribe((patient) => (this.patient = patient));
+  navigateToList() {
+    this.router.navigate(['patient']);
   }
 }
