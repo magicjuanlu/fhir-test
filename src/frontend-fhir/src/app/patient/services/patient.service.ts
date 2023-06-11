@@ -16,8 +16,6 @@ export class PatientService {
   getPatientList(): Observable<IPatient[]> {
     return this.fhirApiService
       .getBundle()
-      .pipe(
-        map((bundle) => this.patientAdapter.fromBundleR4toBasicPatient(bundle))
-      );
+      .pipe(map((bundle) => this.patientAdapter.fromBundleR4toPatient(bundle)));
   }
 }

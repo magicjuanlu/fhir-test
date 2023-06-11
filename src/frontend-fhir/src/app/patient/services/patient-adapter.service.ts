@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Bundle } from 'fhir/r4';
+import { Bundle, Patient } from 'fhir/r4';
 import { IPatient } from '../models/patient.model';
 
 @Injectable({
@@ -8,15 +8,25 @@ import { IPatient } from '../models/patient.model';
 export class PatientAdapterService {
   constructor() {}
 
-  fromBundleR4toBasicPatient(r4bundle: Bundle): IPatient[] {
-    return [
-      {
-        id: 1,
-        name: 'name',
-        surname: 'surname',
-        birthdate: new Date().toISOString(),
-        gender: 'male',
-      },
-    ];
+  fromBundleR4toPatient(r4bundle: Bundle): IPatient[] {
+    if (!r4bundle.entry) return [];
+    let patients: IPatient[] = [];
+    r4bundle.entry.forEach((entry) => {
+      if (entry.resource?.resourceType === 'Patient') {
+        patients.push(this.mapR4PatientToPatient(entry.resource));
+      }
+    });
+    return patients;
+  }
+
+  mapR4PatientToPatient(r4Patient: Patient): IPatient {
+    const humanName = r4Patient.name?.[0];
+    return {
+      id: r4Patient.id,
+      name: humanName?.given?.toString(),
+      surname: humanName?.family,
+      birthdate: r4Patient.birthDate,
+      gender: r4Patient.gender,
+    };
   }
 }
