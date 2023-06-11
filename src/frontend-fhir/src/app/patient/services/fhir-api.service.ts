@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Bundle } from 'fhir/r4';
+import { Bundle, Patient } from 'fhir/r4';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,5 +12,9 @@ export class FHIRApiService {
 
   getBundle(): Observable<Bundle> {
     return this.http.get<Bundle>(`${this.fhirServerUrl}Patient`);
+  }
+
+  getPatient(id: string): Observable<Patient> {
+    return this.http.get<Patient>(`${this.fhirServerUrl}Patient/${id}`);
   }
 }

@@ -18,4 +18,10 @@ export class PatientService {
       .getBundle()
       .pipe(map((bundle) => this.patientAdapter.fromBundleR4toPatient(bundle)));
   }
+
+  getPatient(id: string): Observable<IPatient> {
+    return this.fhirApiService
+      .getPatient(id)
+      .pipe(map((bundle) => this.patientAdapter.mapR4PatientToPatient(bundle)));
+  }
 }
