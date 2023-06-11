@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  app:
+    container_name: frontend-fhir
+    build: .
+    volumes:
+      - ./../src:/app
+    ports:
+      - 4200:4200
+    command: "sh -c 'tail -f /dev/null'"
