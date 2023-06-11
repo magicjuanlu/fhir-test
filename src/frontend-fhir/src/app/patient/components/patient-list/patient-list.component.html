@@ -1,7 +1,24 @@
-<p>patient-list works!</p>
-<li *ngFor="let patient of patients">
-  <span>
-    {{ patient.id }} - {{ patient.name }} - {{ patient.surname }} -
-    {{ patient.birthdate }} - {{ patient.gender }}</span
-  >
-</li>
+<p-table
+  [value]="patients"
+  selectionMode="single"
+  dataKey="id"
+  (onRowSelect)="onRowSelect($event)"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Birthdate</th>
+      <th>Gender</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-patient>
+    <tr [pSelectableRow]="patient">
+      <td>{{ patient.name }}</td>
+      <td>{{ patient.surname }}</td>
+      <td>{{ patient.birthday }}</td>
+      <td>{{ patient.gender }}</td>
+    </tr>
+  </ng-template>
+</p-table>
