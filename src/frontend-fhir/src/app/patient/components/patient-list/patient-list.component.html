@@ -1,1 +1,4 @@
 <p>patient-list works!</p>
+<li *ngFor="let patient of patients">
+  <span> {{ patient.id }} - {{ patient.name }}</span>
+</li>
