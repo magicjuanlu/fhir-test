@@ -12,15 +12,9 @@
     <p>State: {{ patient.state }}</p>
     <p>Contry: {{ patient.country }}</p>
     <p>Contact: {{ patient.contact }}</p>
-    {{ patient | json }}
     <ng-template pTemplate="footer">
-      <p-button
-        label="Back to list"
-        icon="pi pi-arrow-left"
-        styleClass="p-button-secondary"
-        [style]="{ 'margin-left': '.5em' }"
-        (click)="navigateToList()"
-      ></p-button>
+      <ng-container *ngTemplateOutlet="backToListButtonTemplate">
+      </ng-container>
     </ng-template>
   </p-card>
 </div>
@@ -32,13 +26,18 @@
     [style]="{ width: '360px' }"
   >
     <ng-template pTemplate="footer">
-      <p-button
-        label="Back to list"
-        icon="pi pi-arrow-left"
-        styleClass="p-button-secondary"
-        [style]="{ 'margin-left': '.5em' }"
-        (click)="navigateToList()"
-      ></p-button>
+      <ng-container *ngTemplateOutlet="backToListButtonTemplate">
+      </ng-container>
     </ng-template>
   </p-card>
 </div>
+
+<ng-template #backToListButtonTemplate>
+  <p-button
+    label="Back to list"
+    icon="pi pi-arrow-left"
+    styleClass="p-button-secondary"
+    [style]="{ 'margin-left': '.5em' }"
+    (click)="navigateToList()"
+  ></p-button
+></ng-template>
