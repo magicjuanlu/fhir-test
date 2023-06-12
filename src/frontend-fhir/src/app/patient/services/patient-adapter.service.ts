@@ -20,14 +20,22 @@ export class PatientAdapterService {
   }
 
   mapR4PatientToPatient(r4Patient: Patient): IPatient {
-    console.log(r4Patient);
     const humanName = r4Patient.name?.[0];
+    const address = r4Patient.address?.[0];
+    const contact = r4Patient.telecom?.[0];
     return {
       id: r4Patient.id,
       name: humanName?.given?.toString(),
       surname: humanName?.family,
       birthdate: r4Patient.birthDate,
       gender: r4Patient.gender,
+      street: address?.line?.toString(),
+      city: address?.city,
+      postalCode: address?.postalCode,
+      district: address?.district,
+      state: address?.state,
+      country: address?.country,
+      contact: contact ? `${contact?.value} (${contact?.system})` : undefined,
     };
   }
 }

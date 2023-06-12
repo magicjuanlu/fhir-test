@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPatient } from '../../models/patient.model';
 import { PatientService } from '../../services/patient.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-patient-details',
@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./patient-details.component.css'],
 })
 export class PatientDetailsComponent {
-  patient: Observable<IPatient | undefined>;
+  patient: Observable<IPatient>;
+  errorMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -18,7 +19,11 @@ export class PatientDetailsComponent {
     private patientService: PatientService
   ) {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.patient = this.patientService.getPatient(id);
+    this.patient = this.patientService.getPatient(id).pipe(
+      tap({
+        error: (err) => (this.errorMessage = err.statusText),
+      })
+    );
   }
 
   navigateToList() {

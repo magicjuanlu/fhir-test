@@ -3,8 +3,34 @@
     header="{{ patient!.name }} {{ patient!.surname }}"
     [style]="{ width: '360px' }"
   >
-    <p>Gender: {{ patient!.gender }}</p>
-    <p>Birthdate: {{ patient!.birthdate }}</p>
+    <p>Gender: {{ patient.gender }}</p>
+    <p>Birthdate: {{ patient.birthdate }}</p>
+    <p>Street: {{ patient.street }}</p>
+    <p>City: {{ patient.city }}</p>
+    <p>Postal code: {{ patient.postalCode }}</p>
+    <p>District: {{ patient.district }}</p>
+    <p>State: {{ patient.state }}</p>
+    <p>Contry: {{ patient.country }}</p>
+    <p>Contact: {{ patient.contact }}</p>
+    {{ patient | json }}
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Back to list"
+        icon="pi pi-arrow-left"
+        styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"
+        (click)="navigateToList()"
+      ></p-button>
+    </ng-template>
+  </p-card>
+</div>
+
+<div class="card-container" *ngIf="errorMessage">
+  <p-card
+    header="Error"
+    subheader="{{ errorMessage }}"
+    [style]="{ width: '360px' }"
+  >
     <ng-template pTemplate="footer">
       <p-button
         label="Back to list"
