@@ -1,17 +1,27 @@
 <div class="card-container" *ngIf="patient | async as patient">
   <p-card
     header="{{ patient!.name }} {{ patient!.surname }}"
-    [style]="{ width: '360px' }"
+    [style]="{ width: '550px' }"
   >
-    <p>Gender: {{ patient.gender }}</p>
-    <p>Birthdate: {{ patient.birthdate }}</p>
-    <p>Street: {{ patient.street }}</p>
-    <p>City: {{ patient.city }}</p>
-    <p>Postal code: {{ patient.postalCode }}</p>
-    <p>District: {{ patient.district }}</p>
-    <p>State: {{ patient.state }}</p>
-    <p>Contry: {{ patient.country }}</p>
-    <p>Contact: {{ patient.contact }}</p>
+    <div class="column-container">
+      <div class="column-content">
+        <p class="font-medium mr-1">Gender</p>
+        <p>{{ patient.gender || "-" }}</p>
+        <p class="font-medium mr-1">Birthdate</p>
+        <p>{{ patient.birthdate || "-" }}</p>
+        <p class="font-medium mr-1">Contact</p>
+        <p>{{ patient.contact || "-" }}</p>
+      </div>
+      <div class="column-content">
+        <p class="font-medium mr-1">Address</p>
+        <p>Street: {{ patient.street || "-" }}</p>
+        <p>City: {{ patient.city || "-" }}</p>
+        <p>Postal code: {{ patient.postalCode || "-" }}</p>
+        <p>District: {{ patient.district || "-" }}</p>
+        <p>State: {{ patient.state || "-" }}</p>
+        <p>Contry: {{ patient.country || "-" }}</p>
+      </div>
+    </div>
     <ng-template pTemplate="footer">
       <ng-container *ngTemplateOutlet="backToListButtonTemplate">
       </ng-container>
