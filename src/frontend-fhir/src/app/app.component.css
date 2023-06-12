@@ -1,0 +1,14 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+:host ::ng-deep .p-toolbar {
+  border: 0px;
+  border-radius: 0px;
+}
+
+.container {
+  height: calc(100vh - 80px);
+}

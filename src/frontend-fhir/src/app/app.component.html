@@ -1,3 +1,14 @@
-App {{ title }} header
+<p-toolbar class="header">
+  <div class="p-toolbar-group-start">
+    <img
+      src="https://primefaces.org/cdn/primeng/images/primeng.svg"
+      height="40"
+      class="mr-2"
+    />{{ title }}
+  </div>
+</p-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<p-toast> </p-toast>

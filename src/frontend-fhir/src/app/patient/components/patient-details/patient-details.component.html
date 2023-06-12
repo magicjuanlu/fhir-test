@@ -1,4 +1,4 @@
-<ng-container *ngIf="patient | async as patient">
+<div class="card-container" *ngIf="patient | async as patient">
   <p-card
     header="{{ patient!.name }} {{ patient!.surname }}"
     [style]="{ width: '360px' }"
@@ -15,4 +15,4 @@
       ></p-button>
     </ng-template>
   </p-card>
-</ng-container>
+</div>

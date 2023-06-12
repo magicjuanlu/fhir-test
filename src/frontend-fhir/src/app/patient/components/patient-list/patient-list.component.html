@@ -5,6 +5,8 @@
     selectionMode="single"
     dataKey="id"
     (onRowSelect)="onRowSelect($event)"
+    [scrollable]="true"
+    scrollHeight="flex"
     [tableStyle]="{ 'min-width': '50rem' }"
     [globalFilterFields]="['name', 'surname', 'birthdate', 'gender']"
   >
@@ -39,5 +41,17 @@
         <td>{{ patient.gender }}</td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">No patients found.</td>
+      </tr>
+    </ng-template>
   </p-table>
+</ng-container>
+
+<ng-container *ngIf="loading">
+  <p-progressBar
+    mode="indeterminate"
+    [style]="{ height: '8px' }"
+  ></p-progressBar>
 </ng-container>

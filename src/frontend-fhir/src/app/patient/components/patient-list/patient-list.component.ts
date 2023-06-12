@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { IPatient } from '../../models/patient.model';
 import { TableRowSelectEvent } from 'primeng/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-patient-list',
@@ -12,13 +12,20 @@ import { Observable } from 'rxjs';
 })
 export class PatientListComponent {
   patients: Observable<IPatient[]>;
+  loading: boolean;
 
   constructor(
     private patientService: PatientService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.patients = this.patientService.getPatientList();
+    this.loading = true;
+    this.patients = this.patientService.getPatientList().pipe(
+      tap({
+        next: () => (this.loading = false),
+        error: () => (this.loading = false),
+      })
+    );
   }
 
   onRowSelect(event: TableRowSelectEvent) {

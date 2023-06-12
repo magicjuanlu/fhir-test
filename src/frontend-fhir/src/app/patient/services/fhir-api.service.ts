@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FHIRApiService {
-  private fhirServerUrl = 'http://hapi.fhir.org/baseR4/';
+  private fhirServerUrl = 'https://hapi.fhir.org/baseR4/';
   constructor(private http: HttpClient) {}
 
   getBundle(): Observable<Bundle> {
